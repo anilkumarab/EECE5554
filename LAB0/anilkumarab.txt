@@ -1,2 +1,2 @@
-A complete Ubuntu 20.04 LTS install or your plans to resolve any issues ASAP
-You are ready to use Git and GitHub
+I have completed the installation of Ubuntu 20.04.
+I am ready to use Git or GitHub.
