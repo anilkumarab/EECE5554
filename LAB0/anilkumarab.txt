@@ -1,2 +1,2 @@
 I have completed the installation of Ubuntu 20.04.
-I am ready to use Git or GitHub.
+I am ready to use Git and GitHub.
