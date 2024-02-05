@@ -47,7 +47,7 @@ find_package(catkin REQUIRED COMPONENTS
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-add_message_files(port
+add_message_files(
    FILES
    Customgps.msg
 #   Message2.msg
@@ -160,7 +160,7 @@ include_directories(
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
 catkin_install_python(PROGRAMS
-   src/driver.py
+   python/standalone_driver.py
    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
  )
 
