@@ -162,7 +162,10 @@ include_directories(
 ## in contrast to setup.py, you can choose the destination
 catkin_install_python(PROGRAMS
    python/standalone_driver.py
+<<<<<<< HEAD
    python/rtk_driver.py
+=======
+>>>>>>> 32b48e3549e05c7dd778e98f441977c14006f9a5
    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
  )
 

@@ -9,7 +9,7 @@ from std_msgs.msg import Header
 
 #Publisher node
 rospy.init_node('gps_driver_node', anonymous=True)
-pub = rospy.Publisher('custom_gps', Customgps, queue_size=10)
+pub = rospy.Publisher('gps', Customgps, queue_size=10)
 custom_gps_msg = Customgps()
 
 
@@ -19,10 +19,16 @@ def isGPGGAinString(stringreadfromport):
     else:
         print('GPGGA not found in string')
 
-def deg_minutes_to_deg_decimal(ddmm_mm):
-    degree = ddmm_mm/100
-    minutes = ddmm_mm%100
-    deg_dec = degree + minutes / 60.0
+def lat_deg_minutes_to_deg_decimal(ddmm_mm):
+    degree = str(ddmm_mm)[:2]
+    minutes = str(ddmm_mm)[2:]
+    deg_dec = float(degree) + float(minutes) / 60.0
+    return deg_dec
+
+def lon_deg_minutes_to_deg_decimal(ddmm_mm):
+    degree = str(ddmm_mm)[:3]
+    minutes = str(ddmm_mm)[3:]
+    deg_dec = float(degree) + float(minutes) / 60.0
     return deg_dec
 
 def convert_coordinates_acc_directions(Latitude, LatitudeDir, Longitude, LongitudeDir):
@@ -44,7 +50,7 @@ def UTCtoUTCEpoch(UTC):
      TimeSinceEpochBOD = TimeSinceEpoch - TimeSinceEpoch % 86400 
      CurrentTime = TimeSinceEpochBOD + UTCinSecs
      CurrentTimeSec = int(CurrentTime)
-     CurrentTimeNsec = int((CurrentTime - CurrentTimeSec) * 1e9)
+     CurrentTimeNsec = int(str(UTC)[6:9]) * 1e7
      print(CurrentTime)
      return [CurrentTimeSec, CurrentTimeNsec]
 
@@ -90,8 +96,8 @@ while True:
     LongitudeDir = str(gpggasplit[5])  
     HDOP = float(gpggasplit[8])
 
-    latitude_dddd_dd = deg_minutes_to_deg_decimal((Latitude))
-    longitude_dddd_dd = deg_minutes_to_deg_decimal((Longitude))
+    latitude_dddd_dd = lat_deg_minutes_to_deg_decimal((Latitude))
+    longitude_dddd_dd = lon_deg_minutes_to_deg_decimal((Longitude))
 
     converted_latitude, converted_longitude = convert_coordinates_acc_directions(latitude_dddd_dd, LatitudeDir, longitude_dddd_dd, LongitudeDir)
 
